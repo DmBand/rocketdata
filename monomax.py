@@ -8,7 +8,7 @@ def get_data(url):
     # Т.к. сайт не отдаёт никаких полезных json-файлов,
     # то всю информацию будем брать c html-страницы
     response = requests.get(url=url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = BeautifulSoup(response.text, 'lxml')
     # Получаем список адресов, телефонов и очищаем его от ненужных данных
     addresses = soup.find_all('p', attrs={'class': 'name'})
     phones = soup.find_all('p', attrs={'class': 'phone'})
