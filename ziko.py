@@ -7,7 +7,7 @@ def get_data(url_html, url_api):
     # Т.к. в api нет телефонных номеров, то их берём с HTML страницы
     response_html = requests.get(url=url_html)
     # Парсим HTML-страницу и забираем таблицу с контактами
-    soup = BeautifulSoup(response_html.text, 'html.parser')
+    soup = BeautifulSoup(response_html.text, 'lxml')
     contacts = soup.find_all('td', attrs={'class': 'mp-table-address'})
     # Т.к. на одном адресе может быть до 3-х компаний (Ziko Apteka, Ziko Optyk, Ziko Dermo),
     # то телефоны этих компаний будут разложены по разным спискам
