@@ -1,6 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+import decorator
 
 
 def get_data(url_html, url_api):
@@ -54,12 +55,11 @@ def get_data(url_html, url_api):
         json.dump(obj=data, fp=f, ensure_ascii=False, indent=4)
 
 
+@decorator.decorator
 def main():
-    print('Пожалуйста, подождите. Идёт сбор данных...')
     url_html = 'https://www.ziko.pl/lokalizator/'
     url_api = 'https://www.ziko.pl/wp-admin/admin-ajax.php?action=get_pharmacies'
     get_data(url_html=url_html, url_api=url_api)
-    print('Сбор данных окончен!')
 
 
 if __name__ == '__main__':

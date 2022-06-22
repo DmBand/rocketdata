@@ -2,6 +2,7 @@ import requests
 import json
 import re
 from bs4 import BeautifulSoup
+import decorator
 
 
 def get_data(url):
@@ -39,11 +40,10 @@ def get_data(url):
         json.dump(obj=data, fp=f, ensure_ascii=False, indent=4)
 
 
+@decorator.decorator
 def main():
-    print('Пожалуйста, подождите. Идёт сбор данных...')
     url = 'https://monomax.by/map'
     get_data(url=url)
-    print('Сбор данных окончен!')
 
 
 if __name__ == '__main__':
