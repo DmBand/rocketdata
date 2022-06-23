@@ -3,5 +3,5 @@ def decorator(func):
         print('Пожалуйста, подождите. Идёт сбор данных...')
         func()
         print('Сбор данных окончен!')
-        return func
+
     return wrapper
