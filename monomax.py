@@ -21,7 +21,6 @@ def get_data(url):
     # По регулярному выражению находим все списки, в которых вначале обязательно идут 2 цифры
     pattern = r'\[\d{2}.*\]'
     coordinates = re.findall(pattern, script)[1:]
-
     # Далее открываем на запись json-файл, формируем данные для записи и записываем их
     with open('monomax.json', 'w', encoding='utf8') as f:
         data = []
@@ -31,9 +30,8 @@ def get_data(url):
                 'address': addresses_text[i],
                 'latlon': coordinates[i],
                 'name': 'Мономах',
-                'phones': phones_text[i]
+                'phones': phones_text[i],
             }
-
             # Добавляем словарь с данными для одного магазина в общий список,
             # а затем записываем этот список в финальный json-файл
             data.append(store)

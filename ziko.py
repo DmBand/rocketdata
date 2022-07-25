@@ -21,7 +21,6 @@ def get_data(url_html, url_api):
             phones[f'{key}'] = [all_contacts[-2].strip()[5:].split(';')]
         else:
             phones[key] += [all_contacts[-2].strip()[5:].split(';')]
-
     # Далее открываем на запись json-файл, формируем данные для записи и записываем их
     with open('ziko.json', 'w', encoding='utf8') as f:
         data = []
@@ -39,16 +38,21 @@ def get_data(url_html, url_api):
             }
             # Т.к. на одном адресе иожет быть несколько учреждений, то проверяем их наличие.
             # Если учреждение есть, то его график работы записываем в отдельный список
-            apteka = pharmacies[p].get('mp_pharmacy_hours') if pharmacies[p].get('mp_pharmacy_enabled') == 'enabled' else None
-            optyk = pharmacies[p].get('mp_optyk_hours') if pharmacies[p].get('mp_optyk_enabled') == 'enabled' else None
-            dermo = pharmacies[p].get('mp_dermo_hours') if pharmacies[p].get('mp_dermo_enabled') == 'enabled' else None
+            apteka = (pharmacies[p].get('mp_pharmacy_hours')
+                      if pharmacies[p].get('mp_pharmacy_enabled') == 'enabled'
+                      else None)
+            optyk = (pharmacies[p].get('mp_optyk_hours')
+                     if pharmacies[p].get('mp_optyk_enabled') == 'enabled'
+                     else None)
+            dermo = (pharmacies[p].get('mp_dermo_hours')
+                     if pharmacies[p].get('mp_dermo_enabled') == 'enabled'
+                     else None)
             if apteka:
                 pharmacy['working_hours'].append([apteka.replace('<br>', ', ').strip()])
             if optyk:
                 pharmacy['working_hours'].append([optyk.replace('<br>', ', ').strip()])
             if dermo:
                 pharmacy['working_hours'].append([dermo.replace('<br>', ', ').strip()])
-
             # Добавляем словарь с данными для одной аптеки в общий список,
             # а затем записываем этот список в финальный json-файл
             data.append(pharmacy)
